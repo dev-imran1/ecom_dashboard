@@ -2,7 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../redux/authSlice";
+
+
+
+
 const Login = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   useEffect(() => {
     if (Cookies.get("accessToken")) {
@@ -36,11 +43,10 @@ const Login = () => {
     e.preventDefault();
     try {
       let res = await axiosInstance.post("/users/login", loginFields);
-      console.log(res.data.statusCode)
       console.log(res.data.data)
-      // if (res.data.statusCode === 200 && res.data.data.role === "admin") {
-      if (res.data.statusCode === 200) {
+      if (res.data.statusCode === 200 && res.data.data.userFounds.role === "admin") {
         Cookies.set('accessToken', res.data.data.accessToken, { expires: 1 })
+        dispatch(setAuth(res.data.data))
         navigate('/')
       } else {
         alert("invalid access")

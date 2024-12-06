@@ -23,7 +23,43 @@ export const eCom = createApi({
       }),
       invalidatesTags: ["Category"],
     }),
+    
+    updateProfilePic: builder.mutation({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append("profilePic", file);
+    
+        return {
+          url: "/users/update",
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`, // Include token securely
+          },
+        };
+      },
+    }),
+    
+    // updateProfilePic: builder.mutation({
+    //   query: (data) => {
+    //     const formData = new FormData();
+    //     formData.append("profilePic", data);
+
+    //     return {
+    //       url: "/users/update",
+    //       method: "POST",
+    //       body: formData,
+    //       headers: {
+    //         Authorization: Cookies.get("accessToken"),
+    //       },
+    //     };
+    //   },
+    // }),
   }),
 });
 
-export const { useCreateCategoryMutation, useGetCategoryQuery } = eCom;
+export const {
+  useCreateCategoryMutation,
+  useGetCategoryQuery,
+  useUpdateProfilePicMutation,
+} = eCom;

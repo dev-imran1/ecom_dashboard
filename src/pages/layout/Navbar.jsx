@@ -6,10 +6,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ setIsOpen, isOpen }) => {
 
   const navigate = useNavigate()
+  const auth = useSelector(state=>state.authSlice.user.userFounds)
+  console.log(auth.displayName)
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -77,13 +80,13 @@ const Navbar = ({ setIsOpen, isOpen }) => {
             <div>
               <img
                 className="cursor-pointer h-[40px] w-[40px] rounded-full "
-                src="/randoProfileImg.jpeg" //this image source will come from backend.
+                src={auth.profilePic || "/randoProfileImg.jpeg"} //this image source will come from backend.
                 alt="user profile image"
               />
             </div>
             <div className="relative inline-block">
               <button className="font-medium text-base hover:text-gray-900">
-                John Doe
+                {auth.displayName}
               </button>{" "}
               {/* the name will come from backend. test dummy. */}
               {isOpenProfile && (

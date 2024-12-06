@@ -18,7 +18,7 @@ const Category = () => {
   const { data: isData, isLoading: isLoad } = useGetCategoryQuery();
 
   useEffect(() => {
-    console.log(isData, "useEffect",isLoad);
+    console.log("useEffect",isData,isLoad);
   }, [isData, isLoad]);
 
   // Handle category input

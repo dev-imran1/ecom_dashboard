@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useUpdateProfilePicMutation } from "../../redux/apiSlice";
 
 const UserProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
+  const [updateProfilePic, { data, error, isLoading }] = useUpdateProfilePicMutation()
   const [userProfileInput, setUserProfileInput] = useState({
     fullName: "",
     phoneNumber: "",
   });
-
+  useEffect(() => {
+    console.log(data, error, isLoading)
+  }, [data, error, isLoading])
   const handleProfileImage = (e) => {
     setProfileImage(e.target.files[0]);
   };
@@ -25,6 +29,11 @@ const UserProfile = () => {
     e.preventDefault();
     console.log(userProfileInput); // Logs the updated user profile information
   };
+
+  const updateAvatar = async (e) => {
+    await updateProfilePic(profileImage)
+    console.log(profileImage)
+  }
 
   // Delivery information
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -87,6 +96,7 @@ const UserProfile = () => {
                   accept="image/*"
                   onChange={handleProfileImage}
                 />
+                <button type="button" onClick={updateAvatar} className="py-2 bg-blue-200 px-2 rounded-md mt-3 capitalize">Update Avatar</button>
               </div>
               <div className="flex flex-col py-2">
                 <label htmlFor="fullName">Full Name</label>
