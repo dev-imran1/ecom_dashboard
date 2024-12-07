@@ -3,20 +3,24 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useUpdateProfilePicMutation } from "../../redux/apiSlice";
+// import { useUpdateProfilePicMutation } from "../../redux/apiSlice";
 
 const UserProfile = () => {
-  const [profileImage, setProfileImage] = useState(null);
-  const [updateProfilePic, { data, error, isLoading }] = useUpdateProfilePicMutation()
+  const [profilePic, setProfilePic] = useState(null);
+  // const [updateProfilePic, { data, error, isLoading }] = useUpdateProfilePicMutation()
+  const [updateProfile] = useUpdateProfilePicMutation();
   const [userProfileInput, setUserProfileInput] = useState({
     fullName: "",
     phoneNumber: "",
   });
-  useEffect(() => {
-    console.log(data, error, isLoading)
-  }, [data, error, isLoading])
-  const handleProfileImage = (e) => {
-    setProfileImage(e.target.files[0]);
-  };
+
+  // useEffect(() => {
+  //   console.log(data, error, isLoading)
+  // }, [data, error, isLoading])
+
+  // const handleProfileImage = (e) => {
+  //   setProfileImage(e.target.files[0]);
+  // };
 
   const handleUserProfileInput = (e) => {
     setUserProfileInput({
@@ -31,8 +35,13 @@ const UserProfile = () => {
   };
 
   const updateAvatar = async (e) => {
-    await updateProfilePic(profileImage)
-    console.log(profileImage)
+    const formData = new FormData()
+    formData.append("profilePic", profilePic)
+    try {
+      await updateProfile(formData)
+    } catch (error) {
+      console.log(err)
+    }
   }
 
   // Delivery information
@@ -94,7 +103,7 @@ const UserProfile = () => {
                   type="file"
                   name="profileImage"
                   accept="image/*"
-                  onChange={handleProfileImage}
+                  onChange={(e) => setProfilePic(e.target.files[0])}
                 />
                 <button type="button" onClick={updateAvatar} className="py-2 bg-blue-200 px-2 rounded-md mt-3 capitalize">Update Avatar</button>
               </div>

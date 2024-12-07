@@ -17,9 +17,6 @@ const Category = () => {
   // Fetch category data query hook
   const { data: isData, isLoading: isLoad } = useGetCategoryQuery();
 
-  useEffect(() => {
-    console.log("useEffect",isData,isLoad);
-  }, [isData, isLoad]);
 
   // Handle category input
   const handleCategoryInput = (e) => {
@@ -30,12 +27,16 @@ const Category = () => {
   };
 
   // Handle create category
-  const handleCreateCategory = (e) => {
-    e.preventDefault();
-    if (categoryInput.name && categoryInput.slug) {
-      createCategory(categoryInput);
-      setCategoryInput({ name: "", slug: "" });
-    }
+  const handleCreateCategory = async(e) => {
+try {
+      e.preventDefault();
+      if (categoryInput.name && categoryInput.slug) {
+        await createCategory(categoryInput);
+        setCategoryInput({ name: "", slug: "" });
+      }
+} catch (error) {
+  console.log(error)
+}
   };
 
   return (
