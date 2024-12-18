@@ -1,3 +1,4 @@
+
 import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -11,8 +12,8 @@ import { useSelector } from "react-redux";
 const Navbar = ({ setIsOpen, isOpen }) => {
 
   const navigate = useNavigate()
-  const auth = useSelector(state=>state.authSlice.user.userFounds)
-  console.log(auth.displayName)
+  const auth = useSelector(state=>state.authSlice.user)
+  console.log("auth",auth)
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -80,13 +81,14 @@ const Navbar = ({ setIsOpen, isOpen }) => {
             <div>
               <img
                 className="cursor-pointer h-[40px] w-[40px] rounded-full "
-                src={auth.profilePic || "/randoProfileImg.jpeg"} //this image source will come from backend.
+                src={auth.profilePicture || "/randoProfileImg.jpeg"} //this image source will come from backend.
                 alt="user profile image"
               />
             </div>
             <div className="relative inline-block">
               <button className="font-medium text-base hover:text-gray-900">
-                {auth.displayName}
+                {/* {auth.displayName} */}
+                {/* {console.log("navbaf",auth.displayName)} */}
               </button>{" "}
               {/* the name will come from backend. test dummy. */}
               {isOpenProfile && (

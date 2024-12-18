@@ -4,12 +4,17 @@ import Cookies from "js-cookie";
 export const eCom = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL }),
-  tagTypes: ["Category"],
+  tagTypes: ["Category", "User"],
 
   endpoints: (builder) => ({
     getCategory: builder.query({
       query: () => "/categories",
       providesTags: ["Category"],
+    }),
+
+    getUser: builder.query({
+      query: (id) => `/users/single/${id}`,
+      providesTags: ["User"],
     }),
 
     createCategory: builder.mutation({
@@ -23,23 +28,6 @@ export const eCom = createApi({
       }),
       invalidatesTags: ["Category"],
     }),
-    
-    // updateProfilePic: builder.mutation({
-    //   query: (file) => {
-    //     const formData = new FormData();
-    //     formData.append("profilePic", file);
-    
-    //     return {
-    //       url: "/users/update",
-    //       method: "POST",
-    //       body: formData,
-    //       headers: {
-    //         Authorization: Cookies.get("accessToken")
-    //       },
-    //     };
-    //   },
-    // }),
-
 
     updateProfilePic: builder.mutation({
       query: (formData) => ({
@@ -52,22 +40,6 @@ export const eCom = createApi({
       }),
       // invalidatesTags: ["Profile"],
     }),
-    
-    // updateProfilePic: builder.mutation({
-    //   query: (data) => {
-    //     const formData = new FormData();
-    //     formData.append("profilePic", data);
-
-    //     return {
-    //       url: "/users/update",
-    //       method: "POST",
-    //       body: formData,
-    //       headers: {
-    //         Authorization: Cookies.get("accessToken"),
-    //       },
-    //     };
-    //   },
-    // }),
   }),
 });
 
@@ -75,4 +47,5 @@ export const {
   useCreateCategoryMutation,
   useGetCategoryQuery,
   useUpdateProfilePicMutation,
+  useGetUserQuery,
 } = eCom;

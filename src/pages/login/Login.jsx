@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
-import { setAuth } from "../../redux/authSlice";
+import { setAuth, setId } from "../../redux/authSlice";
 
 
 
@@ -16,6 +16,7 @@ const Login = () => {
       navigate("/")
     }
   },[])
+
   const [loginFields, setLoginFields] = useState({
     email: "",
     password: "",
@@ -39,14 +40,14 @@ const Login = () => {
   };
 
   // handle sign up
-  const handleSignUp = async (e) => {
+  const handleSigIn = async (e) => {
     e.preventDefault();
     try {
       let res = await axiosInstance.post("/users/login", loginFields);
-      console.log(res.data.data)
+      console.log("test",res.data.data.userFounds._id)
       if (res.data.statusCode === 200 && res.data.data.userFounds.role === "admin") {
         Cookies.set('accessToken', res.data.data.accessToken, { expires: 1 })
-        dispatch(setAuth(res.data.data))
+        dispatch(setId(res.data.data.userFounds._id))
         navigate('/')
       } else {
         alert("invalid access")
@@ -110,7 +111,7 @@ const Login = () => {
                 </div>
                 <div className="py-3">
                   <button
-                    onClick={handleSignUp}
+                    onClick={handleSigIn}
                     className="text-center w-full bg-black text-white"
                   >
                     Log In

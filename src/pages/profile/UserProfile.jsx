@@ -3,24 +3,22 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useUpdateProfilePicMutation } from "../../redux/apiSlice";
-// import { useUpdateProfilePicMutation } from "../../redux/apiSlice";
 
 const UserProfile = () => {
   const [profilePic, setProfilePic] = useState(null);
-  // const [updateProfilePic, { data, error, isLoading }] = useUpdateProfilePicMutation()
-  const [updateProfile] = useUpdateProfilePicMutation();
+  const [updateProfile, data, error, isLoading] = useUpdateProfilePicMutation();
   const [userProfileInput, setUserProfileInput] = useState({
     fullName: "",
     phoneNumber: "",
   });
 
-  // useEffect(() => {
-  //   console.log(data, error, isLoading)
-  // }, [data, error, isLoading])
+  useEffect(() => {
+    console.log(data, error, isLoading)
+  }, [data, error, isLoading])
 
-  // const handleProfileImage = (e) => {
-  //   setProfileImage(e.target.files[0]);
-  // };
+  const handleProfileImage = (e) => {
+    setProfilePic(e.target.files[0]);
+  };
 
   const handleUserProfileInput = (e) => {
     setUserProfileInput({
