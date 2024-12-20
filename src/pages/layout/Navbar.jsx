@@ -13,7 +13,7 @@ const Navbar = ({ setIsOpen, isOpen }) => {
 
   const navigate = useNavigate()
   const auth = useSelector(state=>state.authSlice.user)
-  console.log("auth",auth)
+  // console.log("auth",auth)
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -55,8 +55,7 @@ const Navbar = ({ setIsOpen, isOpen }) => {
 
   return (
     <nav className="py-4 flex justify-between border-b-2">
-      {" "}
-      {/* adding border on the nav bottom for more visual */}
+      {"navbar link"}
       <div onClick={toggleSidebar}>
         <HiOutlineBars3CenterLeft className="w-[35px] h-[35px] text-primary cursor-pointer" />
       </div>
@@ -87,10 +86,8 @@ const Navbar = ({ setIsOpen, isOpen }) => {
             </div>
             <div className="relative inline-block">
               <button className="font-medium text-base hover:text-gray-900">
-                {/* {auth.displayName} */}
-                {/* {console.log("navbaf",auth.displayName)} */}
+                {auth.displayName}
               </button>{" "}
-              {/* the name will come from backend. test dummy. */}
               {isOpenProfile && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md">
                   <ul>

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useGetCategoryQuery } from "../../redux/apiSlice";
+import { data } from "autoprefixer";
 
 const SubCategory = () => {
+  // const [createCategory, { data, isSuccess, isLoading, isError, error }] = useCreateCategoryMutation();
+  const { data: isData, isLoading: isLoad } = useGetCategoryQuery();
   const [subCategoryInput, setsubCategoryInput] = useState({
     subCategoryName: "",
     slug: "",
@@ -20,7 +24,7 @@ const SubCategory = () => {
     setsubCategoryInput({
       subCategoryName: "",
       slug: "",
-      category:"",
+      category: "",
     });
     e.preventDefault();
   };
@@ -78,8 +82,11 @@ const SubCategory = () => {
                 onChange={handleSubCategoryInput}
                 value={subCategoryInput.category}
               >
-                <option value="Category-1">Category-1</option>
-                <option value="Category-2">Category-2</option>
+                <option value={0}>Select Parent Category</option>
+                {!isLoad && isData?.data.map((item, _id) => (
+                  <option value={_id} key={_id}>{item.name}</option>
+                  // <option value={_id} key={_id}>{item.name}{console.log("item", _id)}</option> id paschi na 46 minutes
+                ))}
               </select>
             </div>
             <div className="bg-black px-3 py-2 text-white rounded-lg">

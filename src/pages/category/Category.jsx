@@ -11,8 +11,7 @@ const Category = () => {
   });
 
   // Category creation mutation hook
-  const [createCategory, { isSuccess, isLoading, isError, error }] =
-    useCreateCategoryMutation();
+  const [createCategory, { isSuccess, isLoading, isError, error }] =useCreateCategoryMutation();
 
   // Fetch category data query hook
   const { data: isData, isLoading: isLoad } = useGetCategoryQuery();

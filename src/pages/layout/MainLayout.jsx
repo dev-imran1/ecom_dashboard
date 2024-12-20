@@ -16,14 +16,14 @@ const MainLayout = () => {
 
   const auth = useSelector((state) => state.authSlice)
   
-  console.log("auth main",auth)
+  // console.log("auth main",auth)
   const { data, isLoading, error } = useGetUserQuery(auth.id)
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("data",data?.data)
+    // console.log("data",data?.data)
     if (!Cookies.get("accessToken")) {
       navigate("/login")
     }

@@ -38,7 +38,7 @@ export const eCom = createApi({
           Authorization: Cookies.get("accessToken"),
         },
       }),
-      // invalidatesTags: ["Profile"],
+      invalidatesTags: ["Profile"],
     }),
   }),
 });
